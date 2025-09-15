@@ -2,12 +2,12 @@
 Sistema de Gerenciamento de Granjas - Gerencie sua granja de forma fácil e segura.
 
 # Capa e Documentação
-- Faculdade:
-- Curso:
-- Disciplina:
-- Professor:
+- Faculdade: Centro universitário de Brasília (CEUB)
+- Curso: Ciências da Computação
+- Disciplina: Projeto Integrador II
+- Professor: Tiago Leite 
 - Projeto: (Nome do Projeto)
-- Integrantes: [Richard Esley](https://github.com/RDEsley), [Fernanda Kikuchi](https://github.com/FeMeNiKi), [Matheus Brandão](https://github.com/AtsocD)
+- Integrantes: [Richard Esley](https://github.com/RDEsley) | [Fernanda Kikuchi](https://github.com/FeMeNiKi) | [Matheus Brandão](https://github.com/AtsocD)
 - Data:
 
 # Resumo
