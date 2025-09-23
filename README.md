@@ -67,13 +67,3 @@ O sistema permitirá a análise de rentabilidade por lote a partir das seguintes
 - **Lucro do Lote =** Receita Total – Custo Total.  
 
 ---
-
-## 6. Simplificações Importantes  
-
-Para garantir consistência e evitar redundâncias, foram adotadas algumas simplificações na modelagem e nos processos:  
-
-- Os ovos permanecem separados das demais despesas, evitando duplicidade no cálculo de custos.  
-- A quantidade atual de aves é mantida diretamente na tabela **lotes_aves** e atualizada automaticamente.  
-- O campo **quantidade_nascidos** foi removido da tabela **lotes_incubacao**, uma vez que essa informação já é derivada do processo.  
-- Os status de lotes foram reduzidos ao essencial: **Ativo, Vendido e Finalizado**.  
-- O fluxo do sistema foi definido de forma enxuta, seguindo a sequência: **Ovos → Incubação → Aves → Despesas → Vendas**.  
