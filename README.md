@@ -115,3 +115,6 @@ Entidades principais (campos principais):
 Este projeto é um protótipo acadêmico — licença (MIT).
 
 ---
+
+## Desenvolvedores
+[Richard Esley](RDEsley) / [Fernanda Kikuchi](FeMeNiKi) / Matheus Brandão / Nicolas Mota
