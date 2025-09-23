@@ -1,69 +1,117 @@
+
 # Sistema de Gerenciamento de Granja (SGG)
 
-## 1. Objetivo Principal do Projeto  
+## Visão Geral
+O **Sistema de Gerenciamento de Granja (SGG)** é um protótipo pensado para controlar de forma prática e objetiva o ciclo de produção de aves — desde a aquisição de ovos, passando pela incubação, até a criação e venda das aves. O sistema foca em rastreabilidade por **lote**, permitindo análise financeira por lote (receita, custo e lucro) e o registro de eventos produtivos (mortalidade, despesas, vendas).
 
-O **Sistema de Gerenciamento de Granja (SGG)** tem como objetivo fornecer um controle financeiro e operacional completo do ciclo de produção de pintos, abrangendo desde a aquisição dos ovos até a venda final das aves. O sistema será responsável por rastrear custos, perdas e receitas de cada lote, permitindo ao usuário realizar análises de lucratividade e tomar decisões mais assertivas em relação a compras, processos produtivos e estratégias de precificação.  
-
----
-
-## 2. Conceito Central: O "Lote"  
-
-O conceito de **lote** constitui a espinha dorsal do sistema e será a principal unidade de controle e rastreabilidade. Cada etapa da produção estará vinculada a um lote específico:  
-
-- **Lote de Ovos:** corresponde ao agrupamento de ovos adquiridos.  
-- **Lote de Incubação:** representa a divisão de ovos incubados em determinada chocadeira.  
-- **Lote de Aves:** resultado do processo de incubação, gerando um grupo de pintos.  
-
-Todos os cálculos financeiros e produtivos serão realizados a partir da unidade de lote.  
+Este repositório contém o design conceitual, o modelo de dados e tecnologias propostas para protótipo acadêmico.
 
 ---
 
-## 3. Fluxo de Navegação e Processos  
-
-O sistema terá como ponto inicial a **página principal (Dashboard)**, que exibirá **cards de acesso rápido** para as funcionalidades de Ovos, Incubação, Aves, Despesas e Vendas. Além disso, apresentará um **resumo financeiro** com gasto total, receita total, lucro total e lucro por lote, assim como indicadores de status (ovos em estoque, ovos incubando e aves disponíveis).  
-
-As etapas do fluxo de processos serão divididas em quatro fases principais:  
-
-### Fase 1 – Aquisição de Insumos (Custos Iniciais)  
-- **Cadastro de ovos (lote de ovos):** inclui informações como data da compra, fornecedor, raça, quantidade, valor unitário e valor total. O sistema cria um novo lote de ovos já com custo registrado.  
-- **Cadastro de outras despesas (rações, vacinas, energia, entre outras):** inclui tipo de despesa, descrição, quantidade, valor total e data. Esses custos podem posteriormente ser vinculados a lotes de aves.  
-
-### Fase 2 – Incubação  
-- **Criação de lote de incubação:** a partir de um lote de ovos, informando a chocadeira utilizada, quantidade alocada e datas. O sistema valida a disponibilidade de ovos.  
-- **Finalização da incubação:** registra a quantidade de ovos não eclodidos e a data real de nascimento. A partir dessa operação, é gerado automaticamente um novo lote de aves.  
-
-### Fase 3 – Criação das Aves (Custos Diretos e Mortalidade)  
-- **Registro das informações herdadas:** raça, data de nascimento e quantidade inicial.  
-- **Acompanhamento dinâmico da quantidade atual:** atualizada automaticamente em função de vendas e perdas.  
-- **Registro de perdas (mortalidade):** data, quantidade e motivo (opcional).  
-- **Vinculação de despesas:** despesas cadastradas (como ração e vacinas) podem ser vinculadas diretamente ao lote, permitindo o cálculo detalhado dos custos de criação.  
-
-### Fase 4 – Venda das Aves (Receita)  
-- **Registro de vendas:** vincula o lote de origem, cliente, data, quantidade vendida e valor unitário. O sistema calcula automaticamente o valor total da venda e atualiza a quantidade de aves disponíveis no lote.  
+## Principais Funcionalidades
+- Cadastro e controle de **lotes de ovos**, incluindo custo inicial e fornecedor.  
+- Criação e acompanhamento de **lotes de incubação** (associação entre lote de ovos e chocadeira).  
+- Geração automática de **lotes de aves** ao final da incubação.  
+- Registro de **mortalidade** e atualização automática da quantidade disponível por lote.  
+- Vinculação de **despesas** (ração, vacinas, energia) a lotes para cálculo de custo detalhado.  
+- Registro de **vendas** com atualização de estoque e cálculo de receita.  
+- **Dashboard** com resumo financeiro (gasto total, receita total, lucro total e lucro por lote) e indicadores de status.
 
 ---
 
-## 4. Estrutura do Banco de Dados  
+## Conceito Central: Lote
+A unidade central do sistema é o **lote**. Todas as operações (custos, perdas, receitas) são associadas a um lote específico, o que facilita o cálculo de rentabilidade e a rastreabilidade completa do ciclo produtivo.
 
-A modelagem do banco de dados foi elaborada de forma simplificada, contemplando as principais entidades e seus relacionamentos. As tabelas previstas são:  
-
-- **racas:** id_raca (PK), nome_raca.  
-- **lotes_ovos:** id_lote_ovos (PK), fk_id_raca, data_compra, quantidade_comprada, valor_unitario_pago, custo_total, fornecedor (opcional).  
-- **chocadeiras:** id_chocadeira (PK), nome_identificacao, capacidade.  
-- **lotes_incubacao:** id_lote_incubacao (PK), fk_id_lote_ovos, fk_id_chocadeira, data_inicio, data_final, quantidade_ovos, quantidade_fracasso, status (Incubando, Finalizado).  
-- **lotes_aves:** id_lote_aves (PK), fk_id_lote_incubacao, fk_id_raca, data_nascimento, quantidade_inicial, quantidade_atual, status (Ativo, Vendido, Finalizado).  
-- **registros_mortalidade:** id_registro_morte (PK), fk_id_lote_aves, data_ocorrencia, quantidade, motivo (opcional).  
-- **despesas:** id_despesa (PK), fk_id_lote_aves (opcional), tipo_despesa, descricao, data_despesa, valor_gasto.  
-- **vendas:** id_venda (PK), fk_id_lote_aves, data_venda, quantidade_vendida, valor_unitario_venda, valor_total_venda, cliente (opcional).  
+Tipos de lote:
+- **Lote de Ovos** — ovos adquiridos.  
+- **Lote de Incubação** — ovos alocados para uma chocadeira.  
+- **Lote de Aves** — aves nascidas após incubação.
 
 ---
 
-## 5. Cálculo de Resultados  
+## Cálculos Financeiros
+Os indicadores financeiros por lote são calculados conforme:
+- **Receita Total do Lote** = soma(valor_total_venda) das vendas vinculadas ao lote.  
+- **Custo Total do Lote** = custo inicial dos ovos + soma(despesas vinculadas ao lote).  
+- **Lucro do Lote** = Receita Total – Custo Total.
 
-O sistema permitirá a análise de rentabilidade por lote a partir das seguintes fórmulas:  
+---
 
-- **Receita Total do Lote =** soma dos valores totais das vendas.  
-- **Custo Total do Lote =** custo inicial dos ovos + soma das despesas vinculadas ao lote de aves.  
-- **Lucro do Lote =** Receita Total – Custo Total.  
+## Modelo de Dados (resumo)
+Entidades principais (campos principais):
+- `racas` (id_raca PK, nome_raca)  
+- `lotes_ovos` (id_lote_ovos PK, fk_id_raca, data_compra, quantidade_comprada, valor_unitario_pago, custo_total, fornecedor)  
+- `chocadeiras` (id_chocadeira PK, nome_identificacao, capacidade)  
+- `lotes_incubacao` (id_lote_incubacao PK, fk_id_lote_ovos, fk_id_chocadeira, data_inicio, data_final, quantidade_ovos, quantidade_fracasso, status)  
+- `lotes_aves` (id_lote_aves PK, fk_id_lote_incubacao, fk_id_raca, data_nascimento, quantidade_inicial, quantidade_atual, status)  
+- `registros_mortalidade` (id_registro_morte PK, fk_id_lote_aves, data_ocorrencia, quantidade, motivo)  
+- `despesas` (id_despesa PK, fk_id_lote_aves opcional, tipo_despesa, descricao, data_despesa, valor_gasto)  
+- `vendas` (id_venda PK, fk_id_lote_aves, data_venda, quantidade_vendida, valor_unitario_venda, valor_total_venda, cliente opcional)
+
+---
+
+## Tecnologias Utilizadas e Função no Projeto
+- **Banco de dados: Supabase (Postgres + Auth)**  
+  - Armazena todas as tabelas do sistema (lotes, despesas, vendas, etc.).  
+  - Fornece autenticação (Supabase Auth) para gerenciar usuários e acesso ao sistema.  
+  - Permite uso de SQL, triggers e políticas RLS se necessário.
+
+- **Backend: Node.js + Express**  
+  - Implementa regras de negócio (validações complexas, workflows de incubação, cálculos agregados).  
+  - Faz a comunicação segura com o Supabase usando a `service_role` (quando necessário) e expõe uma API REST/Serverless para o frontend.  
+  - Autentica tokens JWT provenientes do Supabase.
+
+- **Frontend: HTML / CSS / Vanilla JS**  
+  - Interface do usuário (Dashboard, formulários de cadastro, telas de listagem).  
+  - Pode utilizar Supabase JS SDK diretamente para operações simples (autenticação, CRUD) em cenários onde não há lógica sensível exposta.
+
+- **Autenticação: Supabase AUTH**  
+  - Gerencia cadastro, login e recuperação de senha.  
+  - Fornece tokens JWT que o backend deve validar em rotas protegidas.
+
+- **Hosting: Vercel**  
+  - Hospedagem do frontend estático.  
+  - Possibilidade de hospedar endpoints serverless (Funções) para rotas leves.  
+  - Para manter a `service_role` em segurança, recomenda-se hospedar o backend que usa esta key em um serviço que suporte variáveis de ambiente protegidas (p.ex. Render, Railway ou Vercel com cuidado e variáveis protegidas).
+
+---
+
+## Estrutura do Repositório (em desenvolvimento)
+```
+/project-root
+  /frontend
+    index.html
+    /css
+    /js
+  /backend
+    /src
+      index.js
+      routes/
+      controllers/
+      services/
+  /sql
+    schema.sql
+  README.md
+  .env.example
+```
+
+## Roadmap
+- Implementar esquema SQL básico e popular o DB com dados de teste.  
+- Desenvolver endpoints principais (CRUD de lotes, finalização de incubação, vendas, linkar despesas).  
+- Criar UI do Dashboard com cards e gráficos simples (p.ex. Chart.js).  
+- Testes manuais de fluxo (criar lote ovo → incubar → finalizar → vendas).  
+- Deploy e documentação final atualizada.
+
+---
+
+## Como contribuir
+- Abra issues descrevendo problemas ou melhorias.  
+- Envie PRs com branch nomeada `feature/<nome>` ou `fix/<nome>`.  
+- Inclua testes e atualize `README.md` com mudanças significativas.
+
+---
+
+## Licença
+Este projeto é um protótipo acadêmico — licença (MIT).
 
 ---
