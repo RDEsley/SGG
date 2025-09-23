@@ -117,4 +117,4 @@ Este projeto é um protótipo acadêmico — licença (MIT).
 ---
 
 ## Desenvolvedores
-[Richard Esley](https://github.com/RDEsley)) / Fernanda Kikuchi / Matheus Brandão / Nicolas Mota
+[Richard Esley](https://github.com/RDEsley) / Fernanda Kikuchi / Matheus Brandão / Nicolas Mota
