@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="dashboard-grid">
+      <div class="stat-card">
+        <h3>Receita Total</h3>
+        <div class="value" style="color: #4caf50">
+          {{ stats.receitaTotal | masks:'currency' }}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Despesa Total</h3>
+        <div class="value" style="color: #f44336">
+          {{ stats.despesaTotal | masks:'currency' }}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Lucro Líquido</h3>
+        <div class="value" [style.color]="stats.lucroLiquido >= 0 ? '#4caf50' : '#f44336'">
+          {{ stats.lucroLiquido | masks:'currency' }}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Taxa de Sucesso</h3>
+        <div class="value" style="color: #2196f3">
+          {{ stats.taxaSucesso }}%
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container" style="height: 400px">
+      <h3>Receitas vs Despesas (Últimos Meses)</h3>
+      <canvas baseChart
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              type="line">
+      </canvas>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="chart-container" style="height: 300px">
+        <h3>Taxa de Eclosão</h3>
+        <canvas baseChart
+                [data]="pieChartData"
+                [options]="pieChartOptions"
+                type="pie">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>

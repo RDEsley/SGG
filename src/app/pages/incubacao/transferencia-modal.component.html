@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Transferir Ovos</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="transferenciaForm">
+    <div style="margin-bottom: 16px">
+      <p><strong>Chocadeira Atual:</strong> {{ data.alocacao.chocadeiras?.nome }}</p>
+      <p><strong>Quantidade na Alocação:</strong> {{ data.alocacao.quantidade }}</p>
+      <p><strong>Raça:</strong> {{ data.alocacao.lotes_ovos?.racas?.nome || '-' }}</p>
+    </div>
+
+    <mat-form-field class="form-field-full">
+      <mat-label>Nova Chocadeira</mat-label>
+      <mat-select formControlName="nova_chocadeira_id">
+        <mat-option *ngFor="let chocadeira of chocadeirasDisponiveis" [value]="chocadeira.id">
+          {{ getChocadeiraInfo(chocadeira) }}
+        </mat-option>
+      </mat-select>
+      <mat-error>{{ getErrorMessage('nova_chocadeira_id') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-full">
+      <mat-label>Quantidade a Transferir</mat-label>
+      <input matInput type="number" formControlName="quantidade" min="1" [max]="data.alocacao.quantidade">
+      <mat-hint>Máximo: {{ data.alocacao.quantidade }}</mat-hint>
+      <mat-error>{{ getErrorMessage('quantidade') }}</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="loading">
+    Cancelar
+  </button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="loading">
+    <mat-spinner *ngIf="loading" diameter="20" style="display: inline-block; margin-right: 8px"></mat-spinner>
+    Transferir
+  </button>
+</mat-dialog-actions>

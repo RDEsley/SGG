@@ -1,0 +1,96 @@
+.chocadeiras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.chocadeira-card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ocupacao-info {
+  margin: 16px 0;
+}
+
+.ocupacao-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.ocupacao-bar {
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ocupacao-progress {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.alocacoes-list {
+  margin-top: 20px;
+}
+
+.alocacoes-list h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.alocacao-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.alocacao-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alocacao-info strong {
+  color: #333;
+  font-size: 14px;
+}
+
+.alocacao-info span {
+  color: #666;
+  font-size: 12px;
+}
+
+.dias-restantes {
+  color: #ff9800 !important;
+  font-weight: 500;
+}
+
+.alocacao-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.no-alocacoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  color: #999;
+  font-size: 14px;
+}
+
+.no-alocacoes mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}

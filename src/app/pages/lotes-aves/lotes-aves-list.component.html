@@ -1,0 +1,133 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Lotes de Aves</h1>
+  </div>
+
+  <div class="card">
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && dataSource.data.length === 0" class="empty-state">
+      <mat-icon>pets</mat-icon>
+      <p>Nenhum lote de aves cadastrado</p>
+    </div>
+
+    <div *ngIf="!loading && dataSource.data.length > 0">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+        <ng-container matColumnDef="raca">
+          <th mat-header-cell *matHeaderCellDef>Raça</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.racas?.nome || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="data_inicio">
+          <th mat-header-cell *matHeaderCellDef>Data Início</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.data_inicio | masks:'date' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade_inicial">
+          <th mat-header-cell *matHeaderCellDef>Qtd. Inicial</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.quantidade_inicial | masks:'number' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade_atual">
+          <th mat-header-cell *matHeaderCellDef>Qtd. Atual</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.quantidade_atual | masks:'number' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="mortalidade">
+          <th mat-header-cell *matHeaderCellDef>Mortalidade</th>
+          <td mat-cell *matCellDef="let lote">
+            <span [style.color]="calcularMortalidade(lote) > 0 ? '#f44336' : '#4caf50'">
+              {{ calcularMortalidade(lote) | masks:'number' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="taxa_sobrevivencia">
+          <th mat-header-cell *matHeaderCellDef>Taxa Sobrevivência</th>
+          <td mat-cell *matCellDef="let lote">
+            <span [style.color]="calcularTaxaSobrevivencia(lote) >= 90 ? '#4caf50' : '#ff9800'">
+              {{ calcularTaxaSobrevivencia(lote) | number:'1.1-1' }}%
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="width: 120px">Ações</th>
+          <td mat-cell *matCellDef="let lote">
+            <button mat-icon-button (click)="verDetalhes(lote)" matTooltip="Ver Detalhes">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+
+  <div *ngIf="loteSelecionado" class="detalhes-panel">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px">
+        <h2>Detalhes do Lote</h2>
+        <button mat-icon-button (click)="fecharDetalhes()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Raça:</span>
+          <span class="value">{{ loteSelecionado.racas?.nome || '-' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Data Início:</span>
+          <span class="value">{{ loteSelecionado.data_inicio | masks:'date' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Quantidade Inicial:</span>
+          <span class="value">{{ loteSelecionado.quantidade_inicial | masks:'number' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Quantidade Atual:</span>
+          <span class="value">{{ loteSelecionado.quantidade_atual | masks:'number' }}</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px">
+          <h3>Histórico de Mortalidade</h3>
+          <button mat-raised-button color="primary" (click)="registrarMortalidade()">
+            <mat-icon>add</mat-icon>
+            Registrar Mortalidade
+          </button>
+        </div>
+
+        <div *ngIf="mortalidades.length === 0" class="empty-state">
+          <mat-icon>check_circle</mat-icon>
+          <p>Nenhum registro de mortalidade</p>
+        </div>
+
+        <div *ngIf="mortalidades.length > 0" class="mortalidade-list">
+          <div *ngFor="let m of mortalidades" class="mortalidade-item">
+            <div>
+              <strong>{{ m.data_registro | masks:'date' }}</strong>
+              <p>{{ m.motivo }}</p>
+            </div>
+            <span class="quantidade-mortalidade">{{ m.quantidade | masks:'number' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
