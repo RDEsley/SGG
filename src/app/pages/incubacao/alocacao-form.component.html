@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Nova Alocação de Ovos</h1>
+  </div>
+
+  <div class="card" style="max-width: 800px; margin: 0 auto">
+    <form [formGroup]="alocacaoForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <mat-form-field class="form-field-full">
+          <mat-label>Lote de Ovos</mat-label>
+          <mat-select formControlName="lote_ovos_id">
+            <mat-option *ngFor="let lote of lotesOvos" [value]="lote.id">
+              {{ getLoteInfo(lote.id) }}
+            </mat-option>
+          </mat-select>
+          <mat-error>{{ getErrorMessage('lote_ovos_id') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="form-field-full">
+          <mat-label>Chocadeira</mat-label>
+          <mat-select formControlName="chocadeira_id">
+            <mat-option *ngFor="let chocadeira of chocadeiras" [value]="chocadeira.id">
+              {{ chocadeira.nome }} ({{ chocadeira.capacidade - (chocadeira.ocupacao_atual || 0) }} disponíveis)
+            </mat-option>
+          </mat-select>
+          <mat-error>{{ getErrorMessage('chocadeira_id') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="form-field-full">
+          <mat-label>Quantidade de Ovos</mat-label>
+          <input matInput type="number" formControlName="quantidade" min="1">
+          <mat-hint *ngIf="capacidadeDisponivel > 0">
+            Capacidade disponível: {{ capacidadeDisponivel }}
+          </mat-hint>
+          <mat-error>{{ getErrorMessage('quantidade') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="form-field-full">
+          <mat-label>Data de Entrada</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="data_entrada">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error>{{ getErrorMessage('data_entrada') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-field-full">
+          <mat-label>Data Previsão Nascimento</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="data_previsao_nascimento">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error>{{ getErrorMessage('data_previsao_nascimento') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="form-field-full">
+          <mat-label>Temperatura (°C)</mat-label>
+          <input matInput type="number" formControlName="temperatura" step="0.1">
+          <mat-error>{{ getErrorMessage('temperatura') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-field-full">
+          <mat-label>Umidade (%)</mat-label>
+          <input matInput type="number" formControlName="umidade">
+          <mat-error>{{ getErrorMessage('umidade') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="button-group">
+        <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+          <mat-spinner *ngIf="loading" diameter="20" style="display: inline-block; margin-right: 8px"></mat-spinner>
+          Criar Alocação
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

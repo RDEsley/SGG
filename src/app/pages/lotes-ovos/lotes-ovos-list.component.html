@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Lotes de Ovos</h1>
+    <button mat-raised-button color="primary" (click)="novoLote()">
+      <mat-icon>add</mat-icon>
+      Novo Lote
+    </button>
+  </div>
+
+  <div class="card">
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && dataSource.data.length === 0" class="empty-state">
+      <mat-icon>inbox</mat-icon>
+      <p>Nenhum lote de ovos cadastrado</p>
+      <button mat-raised-button color="primary" (click)="novoLote()">
+        Cadastrar Primeiro Lote
+      </button>
+    </div>
+
+    <div *ngIf="!loading && dataSource.data.length > 0">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+        <ng-container matColumnDef="raca">
+          <th mat-header-cell *matHeaderCellDef>Raça</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.racas?.nome || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="data_compra">
+          <th mat-header-cell *matHeaderCellDef>Data Compra</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.data_compra | masks:'date' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade_comprada">
+          <th mat-header-cell *matHeaderCellDef>Qtd. Comprada</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.quantidade_comprada | masks:'number' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade_disponivel">
+          <th mat-header-cell *matHeaderCellDef>Qtd. Disponível</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.quantidade_disponivel | masks:'number' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="preco_unitario">
+          <th mat-header-cell *matHeaderCellDef>Preço Unit.</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.preco_unitario | masks:'currency' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="valor_total">
+          <th mat-header-cell *matHeaderCellDef>Valor Total</th>
+          <td mat-cell *matCellDef="let lote">{{ calcularValorTotal(lote) | masks:'currency' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fornecedor">
+          <th mat-header-cell *matHeaderCellDef>Fornecedor</th>
+          <td mat-cell *matCellDef="let lote">{{ lote.fornecedor }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="width: 120px">Ações</th>
+          <td mat-cell *matCellDef="let lote">
+            <button mat-icon-button (click)="editarLote(lote)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="excluirLote(lote)" matTooltip="Excluir">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</div>

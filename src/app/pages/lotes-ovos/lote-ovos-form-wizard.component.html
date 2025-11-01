@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="page-header">
+    <h1>{{ isEditMode ? 'Editar Lote de Ovos' : 'Novo Lote de Ovos' }}</h1>
+  </div>
+
+  <div class="card wizard-container">
+    <form [formGroup]="loteForm" (ngSubmit)="onSubmit()">
+      <mat-stepper linear #stepper>
+        <mat-step label="Informações Básicas">
+          <div style="padding: 20px 0">
+            <div class="form-row">
+              <mat-form-field class="form-field-full">
+                <mat-label>Raça</mat-label>
+                <mat-select formControlName="raca_id">
+                  <mat-option *ngFor="let raca of racas" [value]="raca.id">
+                    {{ raca.nome }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>{{ getErrorMessage('raca_id') }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field class="form-field-full">
+                <mat-label>Quantidade Comprada</mat-label>
+                <input matInput type="number" formControlName="quantidade_comprada" min="1">
+                <mat-error>{{ getErrorMessage('quantidade_comprada') }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-field-full">
+                <mat-label>Preço Unitário (R$)</mat-label>
+                <input matInput type="number" formControlName="preco_unitario" step="0.01" min="0.01">
+                <mat-error>{{ getErrorMessage('preco_unitario') }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field class="form-field-full">
+                <mat-label>Data da Compra</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="data_compra">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>{{ getErrorMessage('data_compra') }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="button-group">
+              <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+              <button mat-raised-button color="primary" type="button" matStepperNext>
+                Avançar
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step label="Fornecedor">
+          <div style="padding: 20px 0">
+            <div class="form-row">
+              <mat-form-field class="form-field-full">
+                <mat-label>Fornecedor</mat-label>
+                <input matInput formControlName="fornecedor" maxlength="200">
+                <mat-error>{{ getErrorMessage('fornecedor') }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field class="form-field-full">
+                <mat-label>Observações</mat-label>
+                <textarea matInput formControlName="observacoes" rows="4" maxlength="500"></textarea>
+                <mat-hint align="end">{{ loteForm.get('observacoes')?.value?.length || 0 }}/500</mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="button-group">
+              <button mat-button type="button" matStepperPrevious>Voltar</button>
+              <button mat-raised-button color="primary" type="button" matStepperNext>
+                Avançar
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step label="Confirmação">
+          <div style="padding: 20px 0">
+            <h3>Resumo do Lote</h3>
+
+            <div style="margin: 20px 0">
+              <p><strong>Raça:</strong> {{ getRacaNome() }}</p>
+              <p><strong>Quantidade:</strong> {{ loteForm.get('quantidade_comprada')?.value || 0 }}</p>
+              <p><strong>Preço Unitário:</strong> {{ loteForm.get('preco_unitario')?.value | masks:'currency' }}</p>
+              <p><strong>Valor Total:</strong> {{ calcularValorTotal() | masks:'currency' }}</p>
+              <p><strong>Fornecedor:</strong> {{ loteForm.get('fornecedor')?.value || '-' }}</p>
+              <p><strong>Data da Compra:</strong> {{ loteForm.get('data_compra')?.value | masks:'date' }}</p>
+            </div>
+
+            <div class="button-group">
+              <button mat-button type="button" matStepperPrevious>Voltar</button>
+              <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20" style="display: inline-block; margin-right: 8px"></mat-spinner>
+                {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}
+              </button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </form>
+  </div>
+</div>

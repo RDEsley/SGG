@@ -1,0 +1,67 @@
+{
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "add": "Adicionar",
+    "close": "Fechar",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "loading": "Carregando...",
+    "noData": "Nenhum dado disponível",
+    "error": "Erro ao processar solicitação",
+    "success": "Operação realizada com sucesso"
+  },
+  "validation": {
+    "required": "Este campo é obrigatório",
+    "minValue": "Valor mínimo não atingido",
+    "maxValue": "Valor máximo excedido",
+    "invalidEmail": "E-mail inválido",
+    "invalidDate": "Data inválida"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalRevenue": "Receita Total",
+    "totalExpense": "Despesa Total",
+    "netProfit": "Lucro Líquido",
+    "successRate": "Taxa de Sucesso",
+    "revenueVsExpense": "Receitas vs Despesas",
+    "hatchingRate": "Taxa de Eclosão"
+  },
+  "lotes_ovos": {
+    "title": "Lotes de Ovos",
+    "newLote": "Novo Lote",
+    "editLote": "Editar Lote",
+    "raca": "Raça",
+    "quantidadeComprada": "Quantidade Comprada",
+    "quantidadeDisponivel": "Quantidade Disponível",
+    "precoUnitario": "Preço Unitário",
+    "valorTotal": "Valor Total",
+    "fornecedor": "Fornecedor",
+    "dataCompra": "Data da Compra",
+    "observacoes": "Observações"
+  },
+  "incubacao": {
+    "title": "Incubação",
+    "chocadeiras": "Chocadeiras",
+    "novaAlocacao": "Nova Alocação",
+    "capacidade": "Capacidade",
+    "ocupacao": "Ocupação",
+    "temperatura": "Temperatura",
+    "umidade": "Umidade",
+    "dataEntrada": "Data de Entrada",
+    "dataPrevisaoNascimento": "Data Previsão Nascimento",
+    "transferir": "Transferir",
+    "finalizar": "Finalizar"
+  },
+  "lotes_aves": {
+    "title": "Lotes de Aves",
+    "quantidadeInicial": "Quantidade Inicial",
+    "quantidadeAtual": "Quantidade Atual",
+    "mortalidade": "Mortalidade",
+    "taxaSobrevivencia": "Taxa de Sobrevivência",
+    "registrarMortalidade": "Registrar Mortalidade",
+    "motivoMortalidade": "Motivo da Mortalidade"
+  }
+}

@@ -1,0 +1,118 @@
+# ----------------------------
+# Node / Angular
+# ----------------------------
+node_modules/
+dist/
+dist-*/               
+.tmp/
+.out-tsc/
+coverage/
+web-build/
+.angular/             
+.cache/
+
+# Angular build / env artifacts
+/src/environments/*.local.ts
+/src/environments/*.secret.ts
+/*.env
+/*.env.*                
+.env.local
+.env.*.local
+.envrc
+.env
+
+# ----------------------------
+# Supabase / Edge Functions / CLI
+# ----------------------------
+.supabase/
+supabase/.cache/
+supabase/.local/
+supabase/.temp/
+supabase/functions/node_modules/
+supabase/functions/dist/
+functions/dist/
+functions/node_modules/
+edge-functions/dist/
+edge-functions/node_modules/
+
+# ----------------------------
+# Logs
+# ----------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# ----------------------------
+# OS files
+# ----------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ----------------------------
+# IDEs / Editors
+# ----------------------------
+.vscode/
+.vscode/*                
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.tmp
+
+# ----------------------------
+# Editor temp / build artefacts
+# ----------------------------
+*.tmp
+*.temp
+*.bak
+*.orig
+*.bolt
+.bolt
+
+# ----------------------------
+# Tests / coverage
+# ----------------------------
+coverage/
+jest.config.js
+jest.setup.js
+.vitest/
+
+# ----------------------------
+# Package manager lockfiles
+# ----------------------------
+# NÃO ignore package-lock.json nem yarn.lock por padrão — dependências travadas são úteis.
+# Se quiser ignorar lockfile de outro gerenciador (não recomendado), descomente abaixo:
+# pnpm-lock.yaml
+
+# ----------------------------
+# Generated archives / local zips
+# ----------------------------
+*.zip
+*.tar.gz
+
+# ----------------------------
+# Misc/Secrets
+# ----------------------------
+*.pem
+*.key
+*.crt
+secrets.json
+
+# ----------------------------
+# Optional: IDE-specific node modules/global caches
+# ----------------------------
+.idea/
+.history/
+
+# ----------------------------
+# Notes
+# ----------------------------
+# - Coloque um arquivo "environment.example.ts" ou ".env.example" no repo para documentar variáveis.
+# - Não incluir chaves privadas (SUPABASE_ANON_KEY ok se pública; nunca comitar SERVICE_ROLE_KEY).

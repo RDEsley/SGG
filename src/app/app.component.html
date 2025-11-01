@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <span>Sistema de Gestão de Granja</span>
+  <span style="flex: 1"></span>
+</mat-toolbar>
+
+<mat-sidenav-container style="height: calc(100vh - 64px)">
+  <mat-sidenav mode="side" opened style="width: 250px">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let item of menuItems"
+                     (click)="navigate(item.route)"
+                     [class.active-menu-item]="isActive(item.route)"
+                     style="cursor: pointer">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content style="padding: 20px">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

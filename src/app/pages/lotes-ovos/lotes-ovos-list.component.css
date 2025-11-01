@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: 500;
+  color: #666;
+}
+
+td {
+  color: #333;
+}
