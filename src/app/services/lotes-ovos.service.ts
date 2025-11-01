@@ -5,7 +5,7 @@ export interface LoteOvos {
   id?: string;
   raca_id: string;
   quantidade_comprada: number;
-  preco_unitario: number;
+  valor_unitario_pago: number;
   fornecedor: string;
   data_compra: string;
   observacoes?: string;

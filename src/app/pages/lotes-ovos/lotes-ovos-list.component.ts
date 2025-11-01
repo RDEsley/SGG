@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog.component';
   styleUrls: ['./lotes-ovos-list.component.css']
 })
 export class LotesOvosListComponent implements OnInit {
-  displayedColumns: string[] = ['raca', 'data_compra', 'quantidade_comprada', 'quantidade_disponivel', 'preco_unitario', 'valor_total', 'fornecedor', 'actions'];
+  displayedColumns: string[] = ['raca', 'data_compra', 'quantidade_comprada', 'quantidade_disponivel', 'valor_unitario_pago', 'valor_total', 'fornecedor', 'actions'];
   dataSource = new MatTableDataSource<any>([]);
   loading = true;
   totalRecords = 0;
@@ -84,6 +84,6 @@ export class LotesOvosListComponent implements OnInit {
   }
 
   calcularValorTotal(lote: any): number {
-    return lote.quantidade_comprada * lote.preco_unitario;
+    return lote.quantidade_comprada * lote.valor_unitario_pago;
   }
 }

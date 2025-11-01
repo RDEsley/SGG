@@ -41,7 +41,7 @@ export class LoteOvosFormWizardComponent implements OnInit {
     this.loteForm = this.fb.group({
       raca_id: [''],
       quantidade_comprada: ['', [Validators.required, Validators.min(1)]],
-      preco_unitario: ['', [Validators.required, Validators.min(0.01)]],
+      valor_unitario_pago: ['', [Validators.required, Validators.min(0.01)]],
       fornecedor: ['', [Validators.required, Validators.maxLength(200)]],
       data_compra: [new Date(), Validators.required],
       observacoes: ['', Validators.maxLength(500)]
@@ -74,7 +74,7 @@ export class LoteOvosFormWizardComponent implements OnInit {
         this.loteForm.patchValue({
           raca_id: lote.raca_id,
           quantidade_comprada: lote.quantidade_comprada,
-          preco_unitario: lote.preco_unitario,
+          valor_unitario_pago: lote.valor_unitario_pago,
           fornecedor: lote.fornecedor,
           data_compra: new Date(lote.data_compra),
           observacoes: lote.observacoes
@@ -144,7 +144,7 @@ export class LoteOvosFormWizardComponent implements OnInit {
 
   calcularValorTotal(): number {
     const quantidade = this.loteForm.get('quantidade_comprada')?.value || 0;
-    const preco = this.loteForm.get('preco_unitario')?.value || 0;
+    const preco = this.loteForm.get('valor_unitario_pago')?.value || 0;
     return quantidade * preco;
   }
 

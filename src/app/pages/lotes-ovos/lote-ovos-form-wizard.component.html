@@ -29,8 +29,8 @@
 
               <mat-form-field class="form-field-full">
                 <mat-label>Preço Unitário (R$)</mat-label>
-                <input matInput type="number" formControlName="preco_unitario" step="0.01" min="0.01">
-                <mat-error>{{ getErrorMessage('preco_unitario') }}</mat-error>
+                <input matInput type="number" formControlName="valor_unitario_pago" step="0.01" min="0.01">
+                <mat-error>{{ getErrorMessage('valor_unitario_pago') }}</mat-error>
               </mat-form-field>
             </div>
 
@@ -87,7 +87,7 @@
             <div style="margin: 20px 0">
               <p><strong>Raça:</strong> {{ getRacaNome() }}</p>
               <p><strong>Quantidade:</strong> {{ loteForm.get('quantidade_comprada')?.value || 0 }}</p>
-              <p><strong>Preço Unitário:</strong> {{ loteForm.get('preco_unitario')?.value | masks:'currency' }}</p>
+              <p><strong>Preço Unitário:</strong> {{ loteForm.get('valor_unitario_pago')?.value | masks:'currency' }}</p>
               <p><strong>Valor Total:</strong> {{ calcularValorTotal() | masks:'currency' }}</p>
               <p><strong>Fornecedor:</strong> {{ loteForm.get('fornecedor')?.value || '-' }}</p>
               <p><strong>Data da Compra:</strong> {{ loteForm.get('data_compra')?.value | masks:'date' }}</p>
