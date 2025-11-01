@@ -18,7 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+// import { MatNativeDateModule } from '@angular/material/core'; // <-- 1. REMOVIDO
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,6 +26,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+
+// 2. IMPORTS ADICIONADOS PARA FORMATO DE DATA
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { provideCharts, withDefaultRegisterables, BaseChartDirective } from 'ng2-charts';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
@@ -41,6 +45,19 @@ import { TransferenciaModalComponent } from './pages/incubacao/transferencia-mod
 import { LotesAvesListComponent } from './pages/lotes-aves/lotes-aves-list.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog.component';
 import { MasksPipe } from './shared/masks.pipe';
+
+// 3. DEFINIÇÃO DO FORMATO DE DATA (DD/MM/YYYY)
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // Formato que o usuário digita
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // Formato exibido no input
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -74,7 +91,8 @@ import { MasksPipe } from './shared/masks.pipe';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    // MatNativeDateModule, // <-- 1. REMOVIDO
+    MatMomentDateModule, // <-- 4. ADICIONADO
     MatDialogModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
@@ -89,8 +107,12 @@ import { MasksPipe } from './shared/masks.pipe';
   providers: [
     provideHttpClient(),
     provideNgxMask(),
-    provideCharts(withDefaultRegisterables())
+    provideCharts(withDefaultRegisterables()),
+    // 5. PROVIDERS ADICIONADOS PARA LOCAL (pt-BR) E FORMATO
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
