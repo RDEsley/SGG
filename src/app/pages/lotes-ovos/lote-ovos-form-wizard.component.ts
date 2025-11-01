@@ -39,7 +39,7 @@ export class LoteOvosFormWizardComponent implements OnInit {
 
   initForm() {
     this.loteForm = this.fb.group({
-      raca_id: ['', Validators.required],
+      raca_id: [''],
       quantidade_comprada: ['', [Validators.required, Validators.min(1)]],
       preco_unitario: ['', [Validators.required, Validators.min(0.01)]],
       fornecedor: ['', [Validators.required, Validators.maxLength(200)]],
