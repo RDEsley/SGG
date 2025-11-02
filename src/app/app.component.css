@@ -2,10 +2,20 @@
   background-color: rgba(63, 81, 181, 0.1);
 }
 
+.menuItems{
+  width: 24px;
+  height: 24px;
+}
+
 mat-sidenav {
   border-right: 1px solid #e0e0e0;
 }
 
 mat-toolbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-sidenav-container {
+  height: 100%;
+  flex: 1;
 }

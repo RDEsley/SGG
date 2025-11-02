@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   menuItems = [
-    { icon: 'dashboard', label: 'Dashboard', route: '/dashboard' },
+    { icon: 'assets/icons/dashboard.png', label: 'Dashboard', route: '/dashboard' },
     { icon: 'egg', label: 'Lotes de Ovos', route: '/lotes-ovos' },
     { icon: 'thermostat', label: 'Incubação', route: '/incubacao' },
     { icon: 'pets', label: 'Lotes de Aves', route: '/lotes-aves' }
